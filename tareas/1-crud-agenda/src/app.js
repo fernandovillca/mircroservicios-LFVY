@@ -1,1 +1,3 @@
-console.log("hola mundo !!!");
+const db = require("./config/database");
+
+console.log(db.getConnection());
