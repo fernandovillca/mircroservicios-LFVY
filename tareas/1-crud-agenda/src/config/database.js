@@ -7,6 +7,7 @@ class Database {
       user: "root",
       password: "",
       database: "db_microservicios",
+      dateStrings: true,
     });
 
     this.connect();
