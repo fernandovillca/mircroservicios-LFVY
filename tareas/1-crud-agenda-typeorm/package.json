@@ -1,0 +1,22 @@
+{
+  "name": "curds",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "mysql": "^2.18.1",
+    "typeorm": "^0.3.25"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
