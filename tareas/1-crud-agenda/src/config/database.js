@@ -23,7 +23,7 @@ class Database {
   }
 
   getConnection() {
-    return this.connection;
+    return this.connection.promise();
   }
 }
 
