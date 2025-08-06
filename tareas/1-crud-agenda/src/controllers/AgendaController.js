@@ -26,6 +26,37 @@ class AgendaController {
       res.status(500).send("Error al guardar agenda");
     }
   }
+
+  static async edit(req, res) {
+    try {
+      const agenda = await Agenda.findById(req.params.id);
+      if (!agenda) {
+        return res.status(404).send("Agenda no encontrada");
+      }
+      res.render("agenda/edit", { agenda });
+    } catch (error) {
+      res.status(500).send("Error al obtener agenda");
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      const agenda = new Agenda({ id: req.params.id, ...req.body });
+      await agenda.update();
+      res.redirect("/");
+    } catch (error) {
+      res.status(500).send("Error al actualizar agenda");
+    }
+  }
+
+  static async destroy(req, res) {
+    try {
+      await Agenda.delete(req.params.id);
+      res.redirect("/");
+    } catch (error) {
+      res.status(500).send("Error al eliminar agenda");
+    }
+  }
 }
 
 module.exports = AgendaController;

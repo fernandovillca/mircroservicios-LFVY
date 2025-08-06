@@ -16,6 +16,9 @@ app.set("layout", "layout");
 app.get("/", AgendaController.index);
 app.get("/crear", AgendaController.create);
 app.post("/crear", AgendaController.store);
+app.get("/editar/:id", AgendaController.edit);
+app.post("/editar/:id", AgendaController.update);
+app.post("/eliminar/:id", AgendaController.destroy);
 
 const PORT = 3000;
 app.listen(PORT, () => {
