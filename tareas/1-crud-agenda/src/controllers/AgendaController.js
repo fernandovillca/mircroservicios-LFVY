@@ -10,6 +10,22 @@ class AgendaController {
       res.status(500).send("Error al obtener agenda");
     }
   }
+
+  static create(req, res) {
+    res.render("agenda/create");
+  }
+
+  static async store(req, res) {
+    try {
+      const agenda = new Agenda(req.body);
+
+      //   console.log("Datos recibidos:", agenda);
+      await agenda.save();
+      res.redirect("/");
+    } catch (error) {
+      res.status(500).send("Error al guardar agenda");
+    }
+  }
 }
 
 module.exports = AgendaController;

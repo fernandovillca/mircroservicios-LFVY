@@ -14,6 +14,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("layout", "layout");
 
 app.get("/", AgendaController.index);
+app.get("/crear", AgendaController.create);
+app.post("/crear", AgendaController.store);
 
 const PORT = 3000;
 app.listen(PORT, () => {
