@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Build directories
+dist/
+build/
+
+.vscode/
+
+.npm/
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+
+# Archivos de base de datos locales de MongoDB
+mongo/
+
+
+# Apuntes
+notes.md
+
