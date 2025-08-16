@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center">
+  <div class="card col-6 text-center">
+    <div class="card-header bg-info">
+      <span class="h3 pr-5"> Nuevo Contacto </span>
+    </div>
+    <div class="card-body">
+      <form action="/editar/<%= agenda.id %>" method="POST">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="nombres"
+            placeholder="Nombres"
+            name="nombres"
+            value="<%= agenda.nombres %>"
+          />
+          <label for="nombres">Nombres</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="apellidos"
+            placeholder="Apellidos"
+            name="apellidos"
+            value="<%= agenda.apellidos %>"
+          />
+          <label for="apellidos">Apellidos</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="date"
+            class="form-control"
+            id="fecha_nacimiento"
+            placeholder="Fecha de Nacimiento"
+            name="fecha_nacimiento"
+            value="<%= agenda.fecha_nacimiento %>"
+          />
+          <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="direccion"
+            placeholder="Dirección"
+            name="direccion"
+            value="<%= agenda.direccion %>"
+          />
+          <label for="direccion">Dirección</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="celular"
+            placeholder="Celular"
+            name="celular"
+            value="<%= agenda.celular %>"
+          />
+          <label for="celular">Celular</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="correo"
+            placeholder="Correo Electrónico"
+            name="correo"
+            value="<%= agenda.correo %>"
+          />
+          <label for="correo">Correo Electrónico</label>
+        </div>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-secondary" href="/">Volver</a>
+      </form>
+    </div>
+  </div>
+</div>
