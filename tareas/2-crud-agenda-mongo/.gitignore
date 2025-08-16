@@ -16,3 +16,9 @@ build/
 .vscode/
 
 .npm/
+
+# Docker
+docker-compose.yml
+
+# Apuntes
+notes.md
