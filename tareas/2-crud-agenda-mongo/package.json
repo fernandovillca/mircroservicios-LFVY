@@ -1,8 +1,11 @@
 {
   "name": "2-crud-agenda-mongo",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {},
+   "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
   "dependencies": {
     "body-parser": "^2.2.0",
     "ejs": "^3.1.10",
@@ -13,5 +16,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "author": "fernandovillca"
 }
