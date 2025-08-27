@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <span class="h3 pr-5">Agenda</span>
+      <a href="/crear" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-circle"></i> Agregar
+      </a>
+    </div>
+
+    <hr />
+
+    <div>
+      <table class="table table-striped table-hover table-bordered table-sm">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Fecha Nacimiento</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (agenda.length > 0) { %> <% agenda.forEach((item) => { %>
+          <tr>
+            <th scope="row"><%= item.id %></th>
+            <td><%= item.nombres %></td>
+            <td><%= item.apellidos %></td>
+            <td><%= item.fecha_nacimiento %></td>
+            <td><%= item.direccion %></td>
+            <td><%= item.celular %></td>
+            <td><%= item.correo %></td>
+            <td>
+              <a href="/editar/<%= item.id %>" class="btn btn-sm btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+              </a>
+              <form
+                action="/eliminar/<%= item.id %>"
+                method="POST"
+                style="display: inline"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar este contacto?');"
+              >
+                <button type="submit" class="btn btn-sm btn-danger">
+                  <i class="bi bi-trash3"></i> Eliminar
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }); %> <% } else { %>
+          <tr>
+            <td colspan="8" class="text-center">No hay registros.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
