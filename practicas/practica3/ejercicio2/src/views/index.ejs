@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h1>Lista de Usuarios</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Fecha Registro</th>
+      </tr>
+      <% usuarios.forEach(usuario => { %>
+      <tr>
+        <td><%= usuario.id %></td>
+        <td><%= usuario.nombre %></td>
+        <td><%= usuario.correo %></td>
+        <td><%= usuario.fecha_registro %></td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <br />
+    <a href="/formulario">Agregar nuevo usuario</a>
+  </body>
+</html>
