@@ -2,10 +2,6 @@ lazy val akkaHttpVersion = "10.5.3"
 lazy val akkaVersion    = "2.8.5"
 lazy val json4sVersion  = "4.0.7"
 
-// Run in a separate JVM, to make sure sbt waits until all threads have
-// finished before returning.
-// If you want to keep the application running while executing other
-// sbt tasks, consider https://github.com/spray/sbt-revolver/
 fork := true
 
 lazy val root = (project in file(".")).
@@ -28,7 +24,7 @@ lazy val root = (project in file(".")).
       "org.json4s" %% "json4s-jackson" % json4sVersion,
       "org.json4s" %% "json4s-core" % json4sVersion,
 
-      // GraphQL con Sangria - versiones compatibles
+      // GraphQL - versiones compatibles
       "org.sangria-graphql" %% "sangria" % "3.5.3",
       "org.sangria-graphql" %% "sangria-json4s-native" % "1.0.2",
       

@@ -22,7 +22,7 @@ object GraphQLSchema {
   val CorreoArg = Argument("correo", StringType)
   val IdArg = Argument("id", IntType)
   
-  // Definir las queries (consultas)
+  // Definir las queries
   val QueryType: ObjectType[Unit, Unit] = ObjectType(
     "Query",
     fields[Unit, Unit](
@@ -86,7 +86,6 @@ object GraphQLSchema {
     )
   )
   
-  // Esquema completo
   val schema: Schema[Unit, Unit] = Schema(
     query = QueryType,
     mutation = Some(MutationType)

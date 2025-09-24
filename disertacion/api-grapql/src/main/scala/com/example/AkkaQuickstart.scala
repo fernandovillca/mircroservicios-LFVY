@@ -20,6 +20,8 @@ import sangria.parser.QueryParser
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
+import org.json4s.JsonAST.JValue
+
 case class GraphQLRequest(query: String)
 
 object AkkaQuickstart extends App with Json4sSupport {
@@ -36,7 +38,7 @@ object AkkaQuickstart extends App with Json4sSupport {
     `Access-Control-Allow-Headers`("Content-Type", "Authorization", "X-Requested-With")
   )
 
-  def executeGraphQL(query: Document): Future[Either[Throwable, Any]] = {
+  def executeGraphQL(query: Document): Future[Either[Throwable, JValue]] = {
     Executor.execute(
       schema = GraphQLSchema.schema,
       queryAst = query,
@@ -56,7 +58,7 @@ object AkkaQuickstart extends App with Json4sSupport {
               case Success(queryAst) =>
                 onComplete(executeGraphQL(queryAst)) {
                   case Success(Right(result)) =>
-                    complete(StatusCodes.OK -> Map("data" -> result, "message" -> "Consulta exitosa"))
+                    complete(StatusCodes.OK, result)
                   case Success(Left(error)) =>
                     complete(StatusCodes.BadRequest -> Map("error" -> error.getMessage, "message" -> "Bad Request"))
                   case Failure(error) =>
@@ -73,7 +75,7 @@ object AkkaQuickstart extends App with Json4sSupport {
               case Success(queryAst) =>
                 onComplete(executeGraphQL(queryAst)) {
                   case Success(Right(result)) =>
-                    complete(StatusCodes.OK -> Map("data" -> result, "message" -> "Consulta exitosa"))
+                     complete(StatusCodes.OK, result)
                   case Success(Left(error)) =>
                     complete(StatusCodes.BadRequest -> Map("error" -> error.getMessage, "message" -> "Bad Request"))
                   case Failure(error) =>
@@ -94,22 +96,22 @@ object AkkaQuickstart extends App with Json4sSupport {
     case Success(binding) =>
       val address = binding.localAddress
       println(s"""
-        |🚀 Servidor GraphQL iniciado exitosamente!
-        |📍 Dirección: http://${address.getHostString}:${address.getPort}
-        |🔗 GraphQL Endpoint: http://${address.getHostString}:${address.getPort}/graphql
+        |   Servidor GraphQL iniciado exitosamente!
+        |   Dirección: http://${address.getHostString}:${address.getPort}
+        |   GraphQL Endpoint: http://${address.getHostString}:${address.getPort}/graphql
         |
-        |✨ Servidor corriendo... Usa Ctrl+C para detener
+        |   Servidor corriendo... Usa Ctrl+C para detener
         |""".stripMargin)
 
       sys.addShutdownHook {
-        println("🛑 Cerrando servidor...")
+        println("Cerrando servidor...")
         bindingFuture
           .flatMap(_.unbind())
           .onComplete(_ => system.terminate())
       }
 
     case Failure(exception) =>
-      println(s"❌ Error al iniciar el servidor: ${exception.getMessage}")
+      println(s"Error al iniciar el servidor: ${exception.getMessage}")
       system.terminate()
   }
 }

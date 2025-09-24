@@ -20,7 +20,6 @@ object AlumnoRepository {
     5 -> Alumno(5, "Luis", "Martínez Torres", "luis.martinez@email.com")
   )
   
-  // Inicializar el contador con el siguiente ID disponible
   idCounter.set(alumnos.keys.max + 1)
   
   def findAll(): List[Alumno] = alumnos.values.toList.sortBy(_.id)
