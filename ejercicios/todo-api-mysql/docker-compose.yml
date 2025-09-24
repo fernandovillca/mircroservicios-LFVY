@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    # Construye la imagen de la aplicación Node.js a partir del Dockerfile.
+    build: .
+    # Mapea el puerto 3000 del contenedor al puerto 3000 del host.
+    ports:
+      - "3000:3000"
+    # Reinicia el contenedor si falla
+    restart: always
+    # Asegura que el servicio 'db' se inicie antes que la aplicación
+    depends_on:
+      - db
+    # Carga todas las variables de entorno del archivo .env
+    env_file:
+      - ./.env
+
+  db:
+    # Usa la imagen oficial de MySQL.
+    image: mysql:8
+    # Mapea el puerto 3306 del contenedor al puerto 3307 de tu máquina local
+    ports:
+      - "${DB_PORT}:3306"
+    # Define las credenciales de la base de datos usando variables del .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+    # Mapea un volumen para la persistencia de datos
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  # Define el volumen para la persistencia de los datos
+  db_data:
