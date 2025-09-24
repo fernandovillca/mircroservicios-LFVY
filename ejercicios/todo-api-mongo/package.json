@@ -1,0 +1,22 @@
+{
+  "name": "todo-api-mongo",
+  "version": "1.0.0",
+  "description": "Ejercicio para realizar un api rest con node y mongo, haciendo uso de docker y orquestando con docker-compose",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "keywords": [],
+  "author": "L. Fernando Villca",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
