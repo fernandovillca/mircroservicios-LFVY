@@ -17,23 +17,20 @@ export class EventsService {
   }
 
   async findOne(id: string): Promise<any | null> {
-    const event = await this.eventModel.findById(id).exec(); 
+    const event = await this.eventModel.findById(id).exec();
     return event;
   }
 
   async update(id: string, updateData: any): Promise<any> {
-    const updatedEvent = await this.eventModel.findByIdAndUpdate(
-        id, 
-        updateData, 
-        { 
-            new: true, 
-        }
-    ).exec();
+    const updatedEvent = await this.eventModel
+      .findByIdAndUpdate(id, updateData, {
+        new: true,
+      })
+      .exec();
     return updatedEvent;
   }
 
   async remove(id: string): Promise<Event | null> {
-  return this.eventModel.findByIdAndDelete(id).exec();
+    return this.eventModel.findByIdAndDelete(id).exec();
   }
-
 }

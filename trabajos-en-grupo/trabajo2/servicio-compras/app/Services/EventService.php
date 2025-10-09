@@ -10,16 +10,15 @@ class EventService
 
     public function __construct()
     {
-        $this->baseUrl = env('EVENTS_SERVICE_URL', 'http://localhost:5000');
+        $this->baseUrl = env('EVENTS_SERVICE_URL', 'http://localhost:4000');
     }
 
-    /**
-     * Buscar evento por ID
-     */
-    public function findEventById(string $eventId)
+    public function findEventById(string $eventId, string $userToken)
     {
         try {
-            $response = Http::get("{$this->baseUrl}/api/events/{$eventId}");
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$userToken}"
+            ])->get("{$this->baseUrl}/events/{$eventId}");
 
             if ($response->successful()) {
                 return $response->json();

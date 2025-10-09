@@ -16,19 +16,11 @@ class Purchase extends Model
         'price',
         'total',
         'status',
-        'meta',
     ];
 
     protected $casts = [
         'event_date' => 'datetime',
-        'meta' => 'array',
         'price' => 'decimal:2',
         'total' => 'decimal:2',
     ];
-
-    public function markAsPaid(): bool
-    {
-        $this->status = 'pagado';
-        return $this->save();
-    }
 }

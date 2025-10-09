@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->enum('status', ['pendiente', 'pagado', 'cancelado'])->default('pendiente');
 
-            $table->json('meta')->nullable();
 
             $table->timestamps();
         });

@@ -18,16 +18,14 @@ class PurchaseController extends Controller
 
     public function testJWT(Request $request)
     {
-        $userData = $request->userData; // Datos del usuario extraídos del token JWT
+        $userData = $request->userData;
         return response()->json([
             'message' => 'Token válido',
             'user' => $userData
         ]);
     }
 
-    /**
-     * Crear una compra pendiente
-     */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -42,11 +40,11 @@ class PurchaseController extends Controller
             ], 422);
         }
 
-        // Verificar token middleware
         $userData = $request->userData;
+        $userToken = $request->header('Authorization');
 
-        // Consultar evento
-        $event = $this->eventService->findEventById($request->event_id);
+        $event = $this->eventService->findEventById($request->event_id, str_replace('Bearer ', '', $userToken));
+
         if (!$event) {
             return response()->json(['message' => 'Evento no encontrado'], 404);
         }
@@ -60,7 +58,7 @@ class PurchaseController extends Controller
             'event_id' => $request->event_id,
             'event_title' => $event['name'] ?? null,
             'quantity' => $quantity,
-            'price' => $price,
+            'price' => "100",
             'total' => $total,
             'status' => 'pendiente',
         ]);
@@ -71,9 +69,6 @@ class PurchaseController extends Controller
         ], 201);
     }
 
-    /**
-     * Marcar una compra como pagada
-     */
     public function pay(Request $request, $id)
     {
         $userData = $request->userData;
@@ -95,12 +90,23 @@ class PurchaseController extends Controller
         $purchase->status = 'pagado';
         $purchase->save();
 
-        // Aquí luego puedes enviar mensaje a RabbitMQ para notificación
-        // RabbitMQPublisher::publish('notificaciones', [...]);
-
         return response()->json([
             'message' => 'Compra pagada exitosamente',
             'purchase' => $purchase
+        ]);
+    }
+
+    public function myPurchases(Request $request)
+    {
+        $userData = $request->userData;
+
+        $purchases = Purchase::where('user_id', $userData['id'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'message' => 'Compras obtenidas exitosamente',
+            'purchases' => $purchases
         ]);
     }
 }

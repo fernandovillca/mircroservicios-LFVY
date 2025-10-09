@@ -1,33 +1,50 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { TokenGuard } from '../common/guards/token.guard';
 
 @Controller('events')
-@UseGuards(TokenGuard) 
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  @UseGuards(TokenGuard)
   @Post()
   async create(@Body() body: any) {
     const { name, date, location, capacity, price } = body;
-    if (!name || !date || !location || capacity === undefined || price === undefined) {
+    if (
+      !name ||
+      !date ||
+      !location ||
+      capacity === undefined ||
+      price === undefined
+    ) {
       return { message: 'Todos los campos son obligatorios' };
     }
     return this.eventsService.create({ name, date, location, capacity, price });
   }
 
   @Get()
+  @UseGuards(TokenGuard)
   async findAll() {
     return this.eventsService.findAll();
   }
 
-  @Get(':id') 
+  @Get(':id')
   async findOne(@Param('id') id: string) {
     const event = await this.eventsService.findOne(id);
-    return event; 
+    return event;
   }
 
   @Put(':id')
+  @UseGuards(TokenGuard)
   async update(@Param('id') id: string, @Body() body: any) {
     id = (id ?? '').trim();
     const updatePayload: any = {};
@@ -53,6 +70,7 @@ export class EventsController {
   }
 
   @Delete(':id')
+  @UseGuards(TokenGuard)
   async remove(@Param('id') id: string) {
     return this.eventsService.remove(id);
   }
