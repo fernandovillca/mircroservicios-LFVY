@@ -42,3 +42,26 @@ exports.register = async (req, res) => {
     });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, "-password");
+    const formattedUsers = users.map((user) => ({
+      id: user._id,
+      nombre: user.nombre,
+      apellidos: user.apellidos,
+      correo: user.correo,
+      rol: user.rol,
+    }));
+
+    res.status(200).json({
+      message: "Usuarios obtenidos exitosamente",
+      users: formattedUsers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al obtener usuarios",
+      error: error.message,
+    });
+  }
+};

@@ -32,7 +32,6 @@ export class EventsController {
   }
 
   @Get()
-  @UseGuards(TokenGuard)
   async findAll() {
     return this.eventsService.findAll();
   }

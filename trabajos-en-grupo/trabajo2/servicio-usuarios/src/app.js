@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/connection");
 const routes = require("./routes");
-// const cors = require("cors");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 
 // Middlewares globales
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 // Rutas principales
