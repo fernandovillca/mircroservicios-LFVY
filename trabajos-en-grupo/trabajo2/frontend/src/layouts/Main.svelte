@@ -48,7 +48,7 @@
 
         {#if role === "user"}
           <li class="nav-item">
-            <a class="nav-link" href="#/users">Mis Tikets</a>
+            <a class="nav-link" href="#/mis-tickets">Mis Tikets</a>
           </li>
         {/if}
       </ul>

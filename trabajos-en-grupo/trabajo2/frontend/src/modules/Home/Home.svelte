@@ -34,5 +34,7 @@
     </div>
   {/if}
 
-  <AllEvents />
+  {#if role === "user"}
+    <AllEvents />
+  {/if}
 </Layout>
