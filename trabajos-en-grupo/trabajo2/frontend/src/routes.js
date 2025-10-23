@@ -4,9 +4,9 @@ import Home from "./modules/Home/Home.svelte";
 import Users from "./modules/Users/Users.svelte";
 import MyPurchases from "./modules/purchases/MyPurchases.svelte";
 import { protectedRoute } from "./services/protectedRoute.js";
-
 import Events from "./modules/events/Events.svelte";
 import CreateEvent from "./modules/events/CreateEvent.svelte";
+import EditEvent from "./modules/events/EditEvent.svelte";
 
 const routes = {
   "/": Home,
@@ -15,6 +15,7 @@ const routes = {
   "/users": Users,
   "/events": Events,
   "/events/create": CreateEvent,
+  "/events/:id/edit": EditEvent,
   "/mis-tickets": MyPurchases,
 };
 

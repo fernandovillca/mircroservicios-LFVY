@@ -8,6 +8,8 @@
   let quantity = 1;
   let total = 0;
 
+  let btnDisabled = false;
+
   const fetchEvents = async () => {
     try {
       const response = await EventsService.getEvents();
@@ -44,6 +46,7 @@
     }
 
     try {
+      btnDisabled = true;
       const data = {
         event_id: selectedEvent._id || selectedEvent.id,
         quantity: quantity,
@@ -56,6 +59,8 @@
         text: "Tu compra ha sido procesada correctamente.",
         icon: "success",
       });
+
+      btnDisabled = false;
 
       push("/mis-tickets");
 
@@ -182,10 +187,12 @@
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
+            disabled={btnDisabled}
           >
             Cancelar Compra
           </button>
           <button
+            disabled={btnDisabled}
             type="button"
             class="btn btn-primary"
             on:click={confirmarCompra}

@@ -13,8 +13,6 @@
     try {
       const res = await AuthService.login({ correo, password });
 
-      // console.log("La Data es: ", res.data);
-      // console.log("El token es: ", res.data?.token);
       const token = res.data?.token;
 
       if (token) {
