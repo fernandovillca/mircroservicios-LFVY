@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    # Construye la imagen de la aplicación Node.js a partir del Dockerfile en el mismo directorio.
+    build: .
+    # Mapea el puerto 3000 del contenedor al puerto 3000 del host para poder acceder a la API.
+    ports:
+      - "3000:3000"
+    # Reinicia el contenedor si falla
+    restart: always
+    # Define la dependencia: 'app' solo se iniciará después de que 'mongo' esté listo.
+    depends_on:
+      - mongo
+
+  mongo:
+    # Usa la imagen oficial de MongoDB
+    image: mongo:latest
+    # ¡Esta línea es clave! Mapea el puerto del contenedor al host.
+    ports:
+      - "27017:27017"
+    # Mapea un volumen para persistir los datos
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  # Define el volumen para la persistencia de datos.
+  # Esto asegura que los datos de la base de datos no se pierdan al detener o eliminar el contenedor.
+  mongo-data:
