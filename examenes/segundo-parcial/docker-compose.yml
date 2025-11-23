@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy-auth
+    ports:
+      - "80:80" 
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - vehiculos-service
+    networks:
+      - app-network
+    restart: always
+
+  vehiculos-service:
+    build:
+      context: ./vehiculos-service/
+      dockerfile: Dockerfile
+    container_name: vehiculo-service-container
+    ports:
+      - "4000:4000" 
+    environment:
+      # Conexión al servicio de DB usando el nombre del servicio en Docker: 'db-auth-mongo'
+      MONGO_URI: mongodb://localhost:27017/vehiculos_service
+      JWT_SECRET: E8f4Lx9R5YyO+1nqZVvghr8Pd4
+    depends_on:
+      db-vehiculo-mongo:
+        condition: service_started
+    networks:
+      - app-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  db-vehiculo-mongo:
+    image: mongo:latest
+    container_name: mongo_vehiculo
+    ports:
+      - "27017:27017" 
+    volumes:
+      - vehiculo_mongo_data:/data/db 
+    networks:
+      - app-network
+    restart: always
+  
+  # auth-service:
+  #   build:
+  #     context: ./auth-service/
+  #     dockerfile: Dockerfile
+  #   container_name: auth-service
+  #   ports:
+  #     - "3000:3000" 
+  #   environment:
+  #     - DB_HOST=mysql_auth 
+  #     - DB_USER=root
+  #     - DB_PASSWORD=admin
+  #   depends_on:
+  #     db-auth:
+  #       condition: service_started
+  #   networks:
+  #     - app-network
+  #   restart: always
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 30s
+
+  # db-auth:
+  #   image: mysql:8
+  #   container_name: mysql_auth
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=admin
+  #   ports:
+  #     - "3307:3306"
+  #   networks:
+  #     - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  vehiculo_mongo_data:
